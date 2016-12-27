@@ -1,12 +1,11 @@
 #+TITLE: Questions in Haskell exerciese
 
 * Lists
-In order to work with the use of multi-line in org-mode,
-we first enter in: 
+In order to work with ghci using multi-lines definition of function
+we first enter in,  
 #+BEGIN_SRC haskell
 :set +m
 #+END_SRC
-
 
 ** Find the last element of a list.
 - Example:
@@ -16,7 +15,6 @@ we first enter in:
    > myLast ['x','y','z']
      'z'
   #+END_SRC
-
 
 - Answer:
   #+BEGIN_SRC haskell
@@ -68,7 +66,6 @@ let elementAt :: Int -> [a] -> a
     elementAt 1 (x:xs) = x
     elementAt n (x:xs) = elementAt (n-1) xs
 
-elementAt 2 [1,2,3]
 (elementAt 2 [1,2,3], elementAt 5 "haskell")
   #+END_SRC
 
@@ -118,3 +115,68 @@ let myReverse :: [a] -> [a]
   
 - Results: ("!amanap ,lanac a ,nalp a ,nam A",[4,3,2,1])
 
+** Find out whether a list is a palindrome. 
+A palindrome can be read forward or backward; e.g. (x a m a x).
+
+- Example:
+  #+BEGIN_SRC text
+> isPalindrome [1,2,3]
+  False
+> isPalindrome "madamimadam"
+  True
+> isPalindrome [1,2,3,4,3,2,1]
+  True    
+  #+END_SRC
+  
+- Answer:
+  #+BEGIN_SRC haskell
+:set +m
+let isPalindrome :: (Eq a) => [a] -> Bool
+    isPalindrome xs = reverse xs == xs
+
+(isPalindrome [1,2,3], isPalindrome "mYm", isPalindrome [1,2,1])
+  #+END_SRC
+
+  #+RESULTS:
+  : Prelude| Prelude| Prelude> (False,True,True)
+  
+- Result:  (False,True,True)
+
+** Flatten a nested list structure.
+Since we have to define a new data type, lists in Haskell are homogeneous,
+see the following code.
+- Example:
+  #+BEGIN_SRC text
+> flatten (Elem 5)
+  [5]
+> flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]
+  [1,2,3,4,5]
+> flatten (List [])
+  []
+  #+END_SRC
+
+- Answer:
+  #+BEGIN_SRC haskell
+data NestedList a = Elem a | List [NestedList a]
+let flatten :: NestedList a ->  [a]
+    flatten (Elem a) = [a]
+    flatten 
+
+flatten (List (Elem 1)) 
+  #+END_SRC
+
+  #+RESULTS:
+  : Prelude| Prelude| Prelude> 
+  : <interactive>:83:16:
+  :     Couldn't match expected type `[NestedList a0]'
+  :                 with actual type `NestedList a1'
+  :     In the return type of a call of `Elem'
+  :     In the first argument of `List', namely `(Elem 1)'
+  :     In the first argument of `flatten', namely `(List (Elem 1))'
+
+** TODO Eliminate consecutive duplicates of list elements
+
+** TODO Pack consecutive duplicates of list elements into sublists.
+If a list contains 
+
+** TODO Run-length encoding of a list.

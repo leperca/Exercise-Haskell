@@ -1,0 +1,130 @@
+% Created 2016-12-27 Tue 15:54
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Questions in Haskell exerciese}
+\author{justin}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.9.3f}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+\vspace*{1cm}
+
+\section{Lists}
+\label{sec-1}
+
+In order to work with the use of multi-line in org-mode,
+we first enter in: 
+
+\begin{verbatim}
+:set +m
+\end{verbatim}
+\subsection{Find the last element of a list.}
+\label{sec-1-1}
+
+\begin{itemize}
+\item Example:
+
+\begin{verbatim}
+> myLast [1,2,3,4]
+  4
+> myLast ['x','y','z']
+  'z'
+\end{verbatim}
+\end{itemize}
+
+
+\begin{itemize}
+\item Answer:
+
+\begin{verbatim}
+:set +m
+let myLast :: [a] -> a
+    myLast [x] = x
+    myLast (x:xs) = myLast xs
+(myLast [1,2,3,4],myLast ['x','y','z'])
+\end{verbatim}
+\item Result: (4,'z')
+\end{itemize}
+  
+\subsection{Find the last but one element of a list}
+\label{sec-1-2}
+
+\begin{itemize}
+\item Example:
+
+\begin{verbatim}
+> myButLast [1,2,3,4]
+  3
+> myButLast ['a'..'z']
+  'y'
+\end{verbatim}
+\item Answer:
+
+\begin{verbatim}
+:set +m
+let myButLast :: [a] -> a
+    myButLast [x,y]  = x
+    myButLast (x:xs) = myButLast xs
+
+(myButLast [1,2,3,4],myButLast ['a'..'z'])
+\end{verbatim}
+\item Result: (3,'y')
+\end{itemize}
+\subsection{Find the K'th element of a list.}
+\label{sec-1-3}
+
+The first element in the list is nuber 1.
+
+\begin{itemize}
+\item Example:
+
+\begin{verbatim}
+> elementAt [1,2,3] 2
+  c 
+> elementAt "hakell" 5
+  'e'
+\end{verbatim}
+\item Answer:
+
+\begin{verbatim}
+:set +m
+let elementAt n xs = Int -> [a] -> a
+    elementAt 1 (x:xs) = x
+    elementAt n (x:xs) = elementAt (n-1) xs
+
+(elementAt 2 [1,2,3], elementAt 5 "haskell")
+\end{verbatim}
+\end{itemize}
+
+  
+\begin{itemize}
+\item Results: (2,'e')
+\end{itemize}
+\subsection{Find the number of elements of a list.}
+\label{sec-1-4}
+
+\end{document}

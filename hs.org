@@ -1,0 +1,120 @@
+#+TITLE: Questions in Haskell exerciese
+
+* Lists
+In order to work with the use of multi-line in org-mode,
+we first enter in: 
+#+BEGIN_SRC haskell
+:set +m
+#+END_SRC
+
+
+** Find the last element of a list.
+- Example:
+  #+BEGIN_SRC text
+   > myLast [1,2,3,4]
+     4
+   > myLast ['x','y','z']
+     'z'
+  #+END_SRC
+
+
+- Answer:
+  #+BEGIN_SRC haskell
+  :set +m
+  let myLast :: [a] -> a
+      myLast [x] = x
+      myLast (x:xs) = myLast xs
+  (myLast [1,2,3,4],myLast ['x','y','z'])
+  #+END_SRC
+
+- Result: (4,'z')
+  
+** Find the last but one element of a list
+- Example:
+  #+BEGIN_SRC text
+> myButLast [1,2,3,4]
+  3
+> myButLast ['a'..'z']
+  'y'
+  #+END_SRC
+  
+- Answer:
+  #+BEGIN_SRC haskell
+:set +m
+let myButLast :: [a] -> a
+    myButLast [x,y]  = x
+    myButLast (x:xs) = myButLast xs
+
+(myButLast [1,2,3,4],myButLast ['a'..'z'])
+  #+END_SRC
+
+- Result: (3,'y')
+
+** Find the K'th element of a list. 
+The first element in the list is nuber 1.
+
+- Example:
+  #+BEGIN_SRC text
+> elementAt [1,2,3] 2
+  c 
+> elementAt "hakell" 5
+  'e'
+  #+END_SRC
+  
+- Answer:
+  #+BEGIN_SRC haskell
+:set +m
+let elementAt :: Int -> [a] -> a
+    elementAt 1 (x:xs) = x
+    elementAt n (x:xs) = elementAt (n-1) xs
+
+elementAt 2 [1,2,3]
+(elementAt 2 [1,2,3], elementAt 5 "haskell")
+  #+END_SRC
+
+- Results: (2,'e')
+
+** Find the number of elements of a list.
+   
+- Example:
+  #+BEGIN_SRC text
+> myLength [123, 456, 789]
+  3
+> myLength "Hello, world!"
+  13
+  #+END_SRC
+   
+- Answer:
+  #+BEGIN_SRC haskell
+:set +m 
+let myLength :: [a] -> Int
+    myLength [] = 0
+    myLength (x:xs) = 1 + myLength xs
+  
+(myLength [1,2,3], myLength "Hello, world!")
+  #+END_SRC
+
+- Results:  (3,13)
+
+** Reverse a list
+- Example:
+  #+BEGIN_SRC text
+> myReverse "A man, a plan, a canal, panama!"
+!amanap ,lanac a ,nalp a ,nam A
+> myReverse [1,2,3,4]
+  [4,3,2,1]
+  #+END_SRC
+  
+- Answer:
+
+  #+BEGIN_SRC haskell
+:set +m 
+let myReverse :: [a] -> [a]
+    myReverse [x] = [x]
+    myReverse (x:xs) = myReverse xs ++ [x]
+  
+(myReverse "A man, a plan, a canal, panama!", myReverse [1,2,3,4])
+  #+END_SRC
+  
+- Results: ("!amanap ,lanac a ,nalp a ,nam A",[4,3,2,1])
+
